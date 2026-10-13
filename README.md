@@ -32,7 +32,8 @@ pdf/    rendered, print-ready PDF (A4 landscape, 2 pages, fonts embedded)
 | V4 | + landmark index map, protocol-by-layer, wireless, cloud grading | [html](html/IoT_Real_Horizontal_2pages_V4.html) | [pdf](pdf/IoT_Real_Horizontal_2pages_V4.pdf) |
 | V5 | + Quick ref (Python/OpenCV/PIL/Flask), bullet & column polish | [html](html/IoT_Real_Horizontal_2pages_V5.html) | [pdf](pdf/IoT_Real_Horizontal_2pages_V5.pdf) |
 | V6 | `code → what it does` table, teal numbers | [html](html/IoT_Real_Horizontal_2pages_V6.html) | [pdf](pdf/IoT_Real_Horizontal_2pages_V6.pdf) |
-| **V7** | **final** — ตัวเลข restored, Quick ref merged, inline highlights | [html](html/IoT_Real_Horizontal_2pages_V7.html) | [pdf](pdf/IoT_Real_Horizontal_2pages_V7.pdf) |
+| **V7** | ตัวเลข restored, Quick ref merged, inline highlights | [html](html/IoT_Real_Horizontal_2pages_V7.html) | [pdf](pdf/IoT_Real_Horizontal_2pages_V7.pdf) |
+| **V8** | **final** — labs restructured real.pdf-style: sub-headings, one fact per line, larger page-2 type | [html](html/IoT_Real_Horizontal_2pages_V8.html) | [pdf](pdf/IoT_Real_Horizontal_2pages_V8.pdf) |
 
 ## Printing
 
