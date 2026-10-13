@@ -23,14 +23,14 @@ body{margin:0;background:#eceeee;color:var(--ink);font-family:var(--sans);font-s
 }
 .flow{flex:1 1 auto;column-count:3;column-gap:4.5mm;font-size:5.8pt;line-height:1.28}
 /* page 2 (labs) — larger type for readability */
-.page.pb .flow{font-size:6.05pt;line-height:1.27}
-.page.pb table{font-size:6.05pt}
-.page.pb th{font-size:5.6pt}
-.page.pb pre{font-size:5.8pt}
-.page.pb section h3{font-size:7.9pt}
-.page.pb section h3::before{height:9.8px}
-.page.pb .ol li::before{font-size:5.6pt}
-.page.pb .kv dt{font-size:6.3pt}
+.page.pb .flow{font-size:5.95pt;line-height:1.27}
+.page.pb table{font-size:5.95pt}
+.page.pb th{font-size:5.5pt}
+.page.pb pre{font-size:5.7pt}
+.page.pb section h3{font-size:7.8pt}
+.page.pb section h3::before{height:9.6px}
+.page.pb .ol li::before{font-size:5.5pt}
+.page.pb .kv dt{font-size:6.2pt}
 
 section{break-inside:auto;margin:0 0 3.5px}
 section h3{position:relative;font-family:var(--cond);font-weight:700;font-size:7.4pt;color:var(--ink);
@@ -168,7 +168,7 @@ tbody tr+tr td{border-top:1px solid var(--rowline)}
       <table>
         <thead><tr><th>MODEL</th><th>ข้อดี</th><th>ข้อเสีย</th><th>ใช้ที่ไหน</th></tr></thead>
         <tbody>
-        <tr><td><b>Cloud-centric</b></td><td>พลังสูง · big data · อัปเดตโมเดลง่าย · เทรน ML</td><td>latency สูง · ต้องมีเน็ต · เสี่ยง privacy</td><td>Smart City/Agri, healthcare analytics</td></tr>
+        <tr><td><b>Cloud-centric</b></td><td>พลังประมวลผลสูง · big data · อัปเดตโมเดลง่าย · เทรน ML</td><td>latency สูง · ต้องมีเน็ต · เสี่ยง privacy</td><td>Smart City/Agri, healthcare analytics</td></tr>
         <tr><td><b>Edge-only</b></td><td>latency ต่ำสุด · offline ได้ · privacy ดี</td><td>ทรัพยากรจำกัด · โมเดลเล็ก · อัปเดตยาก</td><td>รถไร้คนขับ, wearable, CCTV real-time</td></tr>
         <tr><td><b>Hybrid</b></td><td>สมดุล latency · ลด bandwidth</td><td>ซับซ้อน · แพง · secure 2 ฝั่ง</td><td>Smart Factory, predictive maintenance</td></tr>
         </tbody>
@@ -340,7 +340,7 @@ tbody tr+tr td{border-top:1px solid var(--rowline)}
         <tbody>
         <tr><td><b>1 Measurement Accuracy</b></td><td>วัดถูกไหม · soil ±2% · detect ≥ 85% · เทียบ <span class="hl">ground-truth ที่ calibrate</span> ตาม datasheet</td></tr>
         <tr><td><b>2 Automation &amp; Responsiveness</b></td><td>ทำเองจากค่าที่วัด + ตอบไว · ไฟติด 0.5 วิ · เตือน HR &gt; 120 ถูก 90% · alert 160 bpm</td></tr>
-        <tr><td><b>3 Innovation &amp; Usefulness</b></td><td>คุณค่าใหม่เกินวัด/ควบคุม · ถังขยะ AI · ห้องเรียนวัด attention</td></tr>
+        <tr><td><b>3 Innovation &amp; Usefulness</b></td><td>คุณค่าใหม่เกินวัด/ควบคุม · ถังขยะ AI · ห้องเรียนวัด attention · <span class="am">healthcare → บริการแพทย์แบบใหม่ที่เมื่อก่อนทำไม่ได้</span></td></tr>
         <tr><td><b>4 Cloud Integration &amp; Data Handling</b></td><td>ขึ้น cloud เก็บ/แสดง/วิเคราะห์ · PM2.5 → Firebase → แอป · Node-RED+MQTT · connectivity ≥ 95% · เกณฑ์ 5 = ≥95%/ไม่สูญหาย · 0 = ไม่มี/ไม่เก็บ</td></tr>
         <tr><td><b>5 System Performance</b></td><td>efficiency+reliability+scalability · uptime 95%/7 วัน · 4 กล้อง latency &lt; 1 วิ · แบต 12 ชม.</td></tr>
         <tr><td><b>6 UX &amp; Presentation</b></td><td>ใช้ง่าย ชัด · Chart.js/Node-RED · ปุ่ม ON/OFF · live demo · <b>เมตริกที่ถูก = เวลาเรียนรู้การใช้แอป</b> (ไม่ใช่ CPU/API/โควตา)</td></tr>
@@ -438,6 +438,7 @@ for (x,y,w,h) in faces:
         <li><span class="teal">WER</span> = ระดับคำ</li>
         <li><span class="teal">Precision</span> TP/(TP+FP) · <span class="teal">Recall</span> TP/(TP+FN) · <span class="teal">F1</span> 2PR/(P+R)</li>
         <li><b>BLEU</b>/<b>OKS</b> ไม่ใช่เมตริก OCR ป้ายทะเบียน</li>
+        <li>ความเชื่อถือได้ของระบบเตือน = <span class="hl">% ของ alert ที่ส่งถึงสำเร็จภายใน 5 วินาที</span> · <b>Latency/fps</b> = ความเร็ว · <b>uptime %</b> = reliability</li>
       </ul>
     </section>
 
@@ -497,7 +498,7 @@ if f[0] and f[1] and not f[2] and not f[3]: return "SCISSORS"</code></pre>
       <table class="num">
         <tbody>
         <tr><td>160 bpm</td><td>threshold ที่ wearable ส่ง alert</td></tr>
-        <tr><td>5 s</td><td>กรอบเวลาส่ง alert สำเร็จ</td></tr>
+        <tr><td>5 s</td><td>% ของ alert ที่ส่งถึงสำเร็จภายใน 5 วินาที</td></tr>
         <tr><td>12 ชม.</td><td>แบต wearable</td></tr>
         <tr><td>640×480</td><td>กล้อง (= 307,200 px) · XRGB8888 = 4 ไบต์/px</td></tr>
         <tr><td>1883</td><td>MQTT port</td></tr>
