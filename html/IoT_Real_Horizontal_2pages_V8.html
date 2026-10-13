@@ -23,14 +23,14 @@ body{margin:0;background:#eceeee;color:var(--ink);font-family:var(--sans);font-s
 }
 .flow{flex:1 1 auto;column-count:3;column-gap:4.5mm;font-size:5.8pt;line-height:1.28}
 /* page 2 (labs) — larger type for readability */
-.page.pb .flow{font-size:6.15pt;line-height:1.29}
-.page.pb table{font-size:6.15pt}
-.page.pb th{font-size:5.7pt}
-.page.pb pre{font-size:5.9pt}
-.page.pb section h3{font-size:8pt}
-.page.pb section h3::before{height:10px}
-.page.pb .ol li::before{font-size:5.7pt}
-.page.pb .kv dt{font-size:6.4pt}
+.page.pb .flow{font-size:6.05pt;line-height:1.27}
+.page.pb table{font-size:6.05pt}
+.page.pb th{font-size:5.6pt}
+.page.pb pre{font-size:5.8pt}
+.page.pb section h3{font-size:7.9pt}
+.page.pb section h3::before{height:9.8px}
+.page.pb .ol li::before{font-size:5.6pt}
+.page.pb .kv dt{font-size:6.3pt}
 
 section{break-inside:auto;margin:0 0 3.5px}
 section h3{position:relative;font-family:var(--cond);font-weight:700;font-size:7.4pt;color:var(--ink);
@@ -369,7 +369,7 @@ tbody tr+tr td{border-top:1px solid var(--rowline)}
         <li><code>cvtColor(frame,BGR2GRAY)</code> <span class="f">#</span> แปลงเทาก่อน detect</li>
         <li><code>detectMultiScale(gray,1.1,4)</code> <span class="f">#</span> → <code>[(x,y,w,h)]</code> · ว่าง = ไม่เจอ</li>
         <li><code>scaleFactor↑</code> เร็วแต่พลาดขนาด · <code>minNeighbors↑</code> FP น้อย · <code>minSize↑</code> เร็ว</li>
-        <li><b>Haar เร็วเพราะ</b> <span class="hl">Integral Image + Cascade Stages</span> · Sliding Window ไถทั่วภาพ</li>
+        <li><b>Haar เร็วเพราะ</b> <span class="hl">Integral Image (sum เร็ว) + Cascade Stages (ตัดพื้นหลังไว)</span> · Sliding Window ไถทั่วภาพ</li>
         <li><code>np.ones((25,25))/(25*25)</code> + <code>filter2D(roi,-1,k)</code> <span class="f">#</span> box blur (ผลรวม = 1; ไม่หาร → ขาวโพลน) · <code>-1</code> = depth เดิม</li>
         <li><code>rectangle(…)</code> + <code>putText(…,LINE_AA)</code> <span class="f">#</span> กรอบหน้า + ข้อความ fps/faces</li>
       </ul>
@@ -382,7 +382,7 @@ for (x,y,w,h) in faces:
       <ul class="nl">
         <li><code>imencode(".jpg",f,[IMWRITE_JPEG_QUALITY,80])</code> <span class="f">#</span> → JPEG bytes</li>
         <li><code>yield b"--frame\r\n…"</code> <span class="f">#</span> 1 ส่วนของสตรีม</li>
-        <li><code>Response(gen(),"multipart/x-mixed-replace; boundary=frame")</code> <span class="f">#</span> <span class="hl">Flask + HTTP (MJPEG)</span> ไม่ใช่ MQTT/WebSocket</li>
+        <li><code>Response(gen(),"multipart/x-mixed-replace; boundary=frame")</code> <span class="f">#</span> <span class="hl">Flask + HTTP (MJPEG)</span> ไม่ใช่ MQTT/WebSocket/gRPC</li>
       </ul>
       <p class="sub">Camera, log &amp; notes</p>
       <ul class="nl">
@@ -390,7 +390,7 @@ for (x,y,w,h) in faces:
         <li>สายกล้อง Pi = <span class="hl">MIPI CSI-2 serial</span> (ไม่ใช่ USB/UVC, I²C, SPI, HDMI)</li>
         <li><code>isoformat(timespec="seconds")</code> <span class="f">#</span> ISO-8601 + timezone (ไม่ใส่ = มีไมโครวินาที) · <code>open("log.txt","a")</code></li>
         <li>status <b>ABSENT=0 · NORMAL=1 · SUSPICIOUS≥2</b> · เขียน log ทุก 1 วิ (ไม่ทุกเฟรม)</li>
-        <li><b>fps = 1 / เวลาต่อเฟรม (s)</b> → 50 ms = 20 fps · ในแล็บ <span class="am">11–25 fps</span> · <b>frame pacing</b> แก้ jitter</li>
+        <li><b>fps = 1 / เวลาต่อเฟรม (s)</b> → 50 ms = 20 fps · ในแล็บ <span class="am">11–25 fps</span> · แก้: ย่อภาพ · ตรวจทุก N เฟรม + cache กรอบ · <b>frame pacing</b> แก้ jitter</li>
         <li>เช็ค OS <code>cat /etc/os-release</code> · Bullseye <code>libcamera-*</code> → Bookworm <code>rpicam-*</code></li>
       </ul>
     </section>
@@ -417,14 +417,15 @@ for (x,y,w,h) in faces:
         <li><code>link_threshold=.4</code> <span class="f">#</span> เชื่อมอักษรเป็นกล่อง (สูง=แยก ต่ำ=รวม)</li>
         <li><code>allowlist</code> ไทย+0–9 <span class="f">#</span> ลดอ่านผิดประเภท (ไม่ช่วยความเร็ว/contrast/การหมุน)</li>
         <li><code>decoder="greedy"</code> <span class="f">#</span> เร็ว ย้อนแก้ไม่ได้ · beamsearch แม่นกว่า ~k เท่า (beamWidth 5)</li>
-        <li><code>rotation_info=[0]</code> <span class="f">#</span> ลดงานอ่าน ~3 เท่า</li>
+        <li><code>rotation_info=[0]</code> <span class="f">#</span> ลองหมุนกล่อง → ลดงานอ่าน ~3 เท่า</li>
+        <li><b>เร่ง:</b> ย่อภาพ (งาน conv ตามพิกเซล) · greedy · rotation [0] · quantize · โหลด Reader ครั้งเดียวนอกลูป · <b>วัด ms ก่อน/หลัง</b></li>
         <li><code>paragraph=False, detail=1</code> <span class="f">#</span> ไม่รวมบรรทัด · คืน bbox+text+conf</li>
         <li>ตัวที่เปลี่ยนผลชัดสุด: <b>contrast_ths · text_threshold · low_text</b> (+ <code>CONF_TH</code>)</li>
       </ul>
       <p class="sub">Preprocess &amp; DB</p>
       <ul class="nl">
         <li><code>ImageEnhance.Contrast(img).enhance(1.25)</code> · <code>UnsharpMask(1.0,120,3)</code></li>
-        <li><code>Image.open(f).convert("RGB")</code> · <code>thumbnail((800,800))</code> คงสัดส่วน ไม่ขยาย</li>
+        <li><code>Image.open(f).convert("RGB")</code> <span class="f">#</span> อ่านเป็น PIL · <code>thumbnail((800,800))</code> คงสัดส่วน ไม่ขยาย</li>
         <li><code>CREATE TABLE IF NOT EXISTS</code> · <code>INSERT OR IGNORE</code> · <span class="hl"><code>?</code> กัน SQL injection</span> · <span class="am">ลืม <code>commit()</code> = ไม่บันทึก</span></li>
         <li>ประกอบทะเบียน: กรอง conf → min_y/min_x จาก 4 มุม → sort y → แถวบน y ห่าง &lt; <span class="hl">40px</span> → sort x → join ไม่เว้นวรรค</li>
         <li>PASS = เจอในตาราง <code>plates</code> · บันทึกทุกครั้ง (PASS+FAIL) · <code>b64encode(buf.getvalue()).decode('ascii')</code> → <code>data:image/jpeg;base64,…</code></li>
@@ -442,15 +443,15 @@ for (x,y,w,h) in faces:
 
     <section><h3>Lab 3 · MediaPipe + เป่ายิ้งฉุบ</h3>
       <p class="sub">ไปป์ไลน์</p>
-      <p>Picamera2 → capture → <code>flip(frame,1)</code> → <code>cvtColor(BGR2RGB)</code> → <code>mp.Image(SRGB)</code> → <code>detect()</code> → classifier() → วาด landmark + ท่า → encode MJPEG → Flask → HTML</p>
+      <p>Picamera2 init → capture → <code>flip(frame,1)</code> → <code>cvtColor(BGR2RGB)</code> → <b>Hand Landmark Detection</b> → <code>mp.Image(SRGB,data=rgb)</code> → <code>detect()</code> → classifier() → วาด landmark + ท่า → encode MJPEG → Flask → HTML</p>
       <p class="sub">Landmarks</p>
       <ul class="nl">
         <li><span class="hl"><b>21 landmarks/มือ</b></span> (ไม่ใช่ 19/20/22/23) · index 0 = WRIST · <code>lm.x*W, lm.y*H</code> (0–1 → พิกเซล)</li>
         <li>โคน → ปลาย: <b>MCP → PIP → DIP → TIP</b></li>
-        <li><b>index:</b> โป้ง 1–4 · ชี้ 5–8 · กลาง 9–12 · นาง 13–16 · ก้อย 17–20 → <b>TIP 4,8,12,16,20 · PIP 6,10,14,18</b></li>
-        <li><b>y = 0 ขอบบน</b> → มือตั้งตรง: <span class="hl">นิ้วเหยียด = TIP.y &lt; PIP.y</span></li>
+        <li><b>index:</b> โป้ง 1–4 (4=TIP) · ชี้ 5–8 · กลาง 9–12 · นาง 13–16 · ก้อย 17–20 → <b>TIP 4,8,12,16,20 · PIP 6,10,14,18</b></li>
+        <li><b>y = 0 ขอบบน เพิ่มลงล่าง</b> → มือตั้งตรง: <span class="hl">นิ้วเหยียด = TIP.y &lt; PIP.y</span></li>
         <li><span class="am">V-sign vs นิ้วชิด:</span> ผลต่างของ x ระหว่างปลายนิ้วที่ติดกัน</li>
-        <li><span class="am">ทนมือเอียง:</span> <code>hypot(dx*W,dy*H)</code> — เหยียดเมื่อ <code>dist(tip,wrist) &gt; dist(pip,wrist)</code></li>
+        <li><span class="am">ทนมือเอียง:</span> ใช้ระยะจากข้อมือ <code>hypot(dx*W,dy*H)</code> — เหยียดเมื่อ <code>dist(tip,wrist) &gt; dist(pip,wrist)</code></li>
       </ul>
       <p class="sub">Classifier &amp; game</p>
       <ul class="nl">
