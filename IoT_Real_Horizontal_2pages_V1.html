@@ -1,0 +1,386 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IoT Application — Cheat Sheet (Landscape 2 pages)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#12181a; --muted:#3f4d50; --faint:#7a8a8e; --accent:#00706e; --amber:#9a5804;
+  --band:#e4eaea; --soft:#f2f6f6; --line:#c9d4d5; --rowline:#e2e8e8;
+  --amber-bg:#fbefdc; --teal-soft:#e1f0ef;
+  --sans:"IBM Plex Sans Thai","Sarabun","Noto Sans Thai",Tahoma,system-ui,sans-serif;
+  --cond:"IBM Plex Sans Condensed","IBM Plex Sans Thai",Tahoma,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,"SFMono-Regular",Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#eceeee;color:var(--ink);font-family:var(--sans);font-size:13px;line-height:1.45}
+
+.page{
+  width:297mm; height:210mm; padding:7mm 8mm 6mm; background:#fff;
+  margin:12px auto; box-shadow:0 1px 6px rgba(0,0,0,.16);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.phead{display:flex;align-items:baseline;gap:12px;border-bottom:1.5px solid var(--ink);
+  padding-bottom:4px;margin-bottom:8px;flex:0 0 auto}
+.phead .l{font-family:var(--cond);font-weight:700;font-size:15pt;color:var(--ink);letter-spacing:.2px;line-height:1}
+.phead .m{font-size:8pt;color:var(--muted)}
+.phead .r{margin-left:auto;font-family:var(--mono);font-weight:600;font-size:8pt;color:var(--accent);white-space:nowrap}
+
+.flow{flex:1 1 auto;column-count:3;column-gap:5mm;font-size:6.3pt;line-height:1.32}
+.page.pa .flow{font-size:6.8pt}
+
+section{break-inside:avoid;margin:0 0 4px}
+section h3{position:relative;font-family:var(--cond);font-weight:700;font-size:8pt;color:var(--ink);
+  margin:0 0 2px;padding:0 0 1.5px 9px;border-bottom:1px solid var(--line);line-height:1.12}
+section h3::before{content:"";position:absolute;left:0;top:1px;width:3px;height:9.5px;
+  background:var(--accent);border-radius:.5px}
+
+p{margin:0 0 3px}
+ul{margin:0 0 3px;padding-left:12px}
+li{margin-bottom:1.5px}
+b{font-weight:600}
+.teal{color:var(--accent);font-weight:600}
+.am{color:var(--amber);font-weight:600}
+.mono{font-family:var(--mono)}
+
+.note{background:var(--soft);border-radius:3px;padding:2px 5px;margin:2px 0}
+.note.amber{background:var(--amber-bg)}
+.tag{color:var(--amber);font-weight:600}
+
+code{font-family:var(--mono);font-size:.92em;background:var(--soft);padding:0 2px;border-radius:2px;overflow-wrap:anywhere}
+pre{font-family:var(--mono);margin:2px 0;padding:4px 6px;background:var(--soft);border-radius:3px;
+  font-size:5.8pt;line-height:1.4;overflow:hidden;color:#1c2426}
+pre code{background:none;padding:0;font-size:inherit}
+
+table{border-collapse:collapse;width:100%;font-size:6.3pt;margin:2px 0 3px}
+th{background:var(--band);color:var(--faint);font-family:var(--cond);font-weight:700;font-size:5.8pt;
+  letter-spacing:.3px;text-align:left;padding:1.5px 5px;border:0}
+td{padding:1.5px 5px;border:0;vertical-align:top}
+tbody tr+tr td{border-top:1px solid var(--rowline)}
+.num td:first-child{font-family:var(--mono);font-weight:600;color:var(--accent);white-space:nowrap;width:33%}
+.num td:last-child{color:var(--muted)}
+
+.kv{display:grid;grid-template-columns:auto 1fr;gap:1px 8px;margin:2px 0}
+.kv dt{color:var(--muted);font-weight:600;white-space:nowrap;font-size:6.9pt}
+.kv dd{margin:0}
+
+.ol{counter-reset:t;margin:0;padding:0;list-style:none}
+.ol li{position:relative;padding-left:15px;margin-bottom:2px}
+.ol li::before{counter-increment:t;content:counter(t,decimal-leading-zero);position:absolute;left:0;top:0;
+  font-family:var(--mono);font-size:6pt;font-weight:600;color:var(--amber)}
+
+@page{size:A4 landscape;margin:0}
+@media print{
+  body{background:#fff}
+  .page{margin:0;box-shadow:none;page-break-after:always}
+  .page:last-of-type{page-break-after:auto}
+}
+</style></head><body>
+
+<!-- ============================== PAGE 1 ============================== -->
+<div class="page pa">
+  <div class="phead">
+    <span class="l">IoT Application</span>
+    <span class="m">2110575 · Part App · Week 1–3 · Quiz 14 ต.ค. 09:00–10:00</span>
+    <span class="r">หน้า 1 / 2 · CONCEPT</span>
+  </div>
+  <div class="flow">
+
+    <section><h3>กติกาสอบ &amp; คะแนน</h3>
+      <dl class="kv">
+        <dt>เวลา</dt><dd>1 ชม. · 09:00–10:00 · 14 ต.ค.</dd>
+        <dt>รูปแบบ</dt><dd>MCQ ทั้งหมด (ตัวเลือก A–E)</dd>
+        <dt>พกได้</dt><dd><span class="am">A4 หน้า–หลัง 1 แผ่น เท่านั้น</span></dd>
+        <dt>ขอบเขต</dt><dd>Week 1–3 (Lab 1–3) · ไม่รวม Lab 4</dd>
+        <dt>หลังสอบ</dt><dd>10:00–12:00 Lab 4 Image Captioning</dd>
+      </dl>
+      <p class="note">คะแนน: Lab 1–4 ละ 4% = 16% (กลุ่ม 3 / เดี่ยว 1) · Quiz 10% → รวม 25% + bonus 1% (เพดาน 25%) · ข้อสอบเก่า 8 ต.ค. 2025 = <b>32 ข้อ ข้อละ 1 คะแนน</b></p>
+    </section>
+
+    <section><h3>IoT คืออะไร · 9 Characteristics</h3>
+      <ul>
+        <li><b>IoT / IoE</b> = เครือข่ายของ things + platform ที่คุยกันเองผ่าน wireless โดยไม่ต้องมีมนุษย์สั่ง <i>(without human intervention)</i> → ได้ efficiency, performance, safety</li>
+        <li><b>3 ประโยชน์หลัก:</b> Communication · Control &amp; Automation · Cost Saving</li>
+        <li><b>9 คุณลักษณะ (ท่องให้ได้):</b> Connectivity · Intelligence · Dynamic Nature · Enormous Scale · Sensing · Heterogeneity · Security · Unique Identity · Integration into Information Network</li>
+      </ul>
+      <p class="note amber"><span class="tag">กับดักข้อสอบจริง:</span> ถามว่าอะไร <span class="am">ไม่ใช่</span> คุณลักษณะของ IoT → ตอบ <span class="am">High latency</span> (latency สูงเป็นข้อเสีย ไม่ใช่คุณลักษณะ) · ระวัง <b>Scalability</b> ที่เป็นคำตอบลวง เพราะมันคือ <b>Enormous Scale</b> จริง ๆ</p>
+    </section>
+
+    <section><h3>ภาพรวม 4 ชั้นของระบบ IoT</h3>
+      <ul>
+        <li><b>1. Devices &amp; Sensors</b> — เก็บข้อมูลจากโลกจริง (อุณหภูมิ การเคลื่อนไหว สุขภาพ) · MCU/edge: Arduino, ESP32, Raspberry Pi</li>
+        <li><b>2. Communication &amp; Networking</b> — Wi-Fi, BLE, ZigBee, LoRa, 5G · โปรโตคอล IPv6, 6LoWPAN, MQTT, CoAP</li>
+        <li><b>3. Data Processing &amp; Platforms</b> — edge หรือ cloud · storage, filtering, analytics, AI/ML → เปลี่ยน raw data เป็น information</li>
+        <li><b>4. Applications</b> — Smart Home · Smart City · Healthcare · Transportation</li>
+      </ul>
+      <p><span class="am">Edge device ที่นับ: Raspberry Pi, ESP32, Arduino, Jetson Nano — <b>Desktop PC ไม่นับเป็น edge device</b></span></p>
+    </section>
+
+    <section><h3>Use Cases — Smart City 2 เคส</h3>
+      <table>
+        <thead><tr><th></th><th>SINGAPORE</th><th>BARCELONA</th></tr></thead>
+        <tbody>
+        <tr><td>จุดเน้น</td><td>citizen-centric บริการประชาชนทั่วประเทศ</td><td>urban infrastructure &amp; sustainability</td></tr>
+        <tr><td>ชื่อโครงการ</td><td><u>Smart Nation</u></td><td><u>Smart City</u></td></tr>
+        <tr><td>แพลตฟอร์ม</td><td>รัฐบาลผลักดัน ใช้ในชีวิตประจำวัน</td><td>Sentilo / <u>CityOS</u> (open data)</td></tr>
+        <tr><td>ตัวอย่าง</td><td>MRT/bus tracking · e-payment ไร้เงินสด · telemedicine + wearables · automated immigration (ใบหน้า+ม่านตา) · smart water meter · environmental modelling · robotics &amp; drones</td><td>smart parking · smart lighting ปรับความสว่างเอง · smart waste (ถังมีเซนเซอร์ จัดเส้นทางเก็บ) · air quality · smart irrigation</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section><h3>Communication Models <span class="faint" style="color:var(--faint);font-weight:600;font-size:6.4pt">ออกสอบแน่</span></h3>
+      <table>
+        <thead><tr><th>MODEL</th><th>ลักษณะ · โปรโตคอล</th></tr></thead>
+        <tbody>
+        <tr><td><b>D2D</b><br>Device-to-Device</td><td>อุปกรณ์คุยกันตรง ๆ ไม่ผ่าน cloud/gateway · <b>MQTT · CoAP · WebSocket · BLE</b> · เช่น smartwatch ส่ง step count เข้ามือถือทาง Bluetooth</td></tr>
+        <tr><td><b>D2C</b><br>Device-to-Cloud</td><td>อุปกรณ์ยิงขึ้น cloud ตรง ๆ ไม่ผ่าน gateway · <b>REST API (HTTP/HTTPS) · MQTT · gRPC</b> · เช่น fitness tracker อัป heart rate/sleep ขึ้น cloud เอง · thermostat → AWS IoT Core</td></tr>
+        <tr><td><b>D2G</b><br>Device-to-Gateway</td><td>เซนเซอร์ → gateway (Pi / router / มือถือ) รวบรวมก่อนส่งต่อ · <b>MQTT · Zigbee · BLE</b> · เช่น เซนเซอร์ smart home/farm ส่งเข้า Pi</td></tr>
+        <tr><td><b>Data sharing</b><br>/ Back-end (C2C)</td><td>Cloud-to-Cloud แลกข้อมูลกันข้ามแพลตฟอร์ม · Fitbit Cloud → Google Fit → ระบบโรงพยาบาล · Azure IoT Hub → SAP → supplier</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><b>ตัวตัดสิน:</b> มี gateway ตรงกลางไหม → ไม่มี + ขึ้น cloud = D2C · ไม่มี + ไม่ขึ้น cloud = D2D · มี = D2G · cloud คุย cloud = C2C</p>
+    </section>
+
+    <section><h3>Data Storage &amp; Database ใน IoT</h3>
+      <ul>
+        <li><b>1 · แบ่งตามที่เก็บ:</b> On-Device — SD card, embedded DB · Edge — gateway / edge server, latency ต่ำ · Cloud — scale ได้ ต่อ big data &amp; ML</li>
+        <li><b>2 · แบ่งตาม DATA MODEL:</b> Relational (SQL) — MySQL, PostgreSQL · NoSQL — Key-Value: Redis, DynamoDB · Document: MongoDB, CouchDB · Time-Series: InfluxDB, TimescaleDB · Graph: Neo4j · Object Storage (รูป/วิดีโอ) · Vector DB</li>
+        <li><b>3 · แบ่งตาม USE CASE:</b> Streaming — Kafka, RabbitMQ, MQTT broker · Analytical / Data Lake — BigQuery, Redshift, Snowflake · IoT-specific — AWS Timestream, Azure Cosmos DB, Google Firebase</li>
+      </ul>
+      <p class="note">ข้อมูล sensor ตามเวลา → <b>Time-Series DB</b> · รูป/วิดีโอ → <b>Object Storage</b></p>
+    </section>
+
+    <section><h3>Processing Models</h3>
+      <table>
+        <thead><tr><th>MODEL</th><th>ข้อดี</th><th>ข้อเสีย</th><th>ใช้ที่ไหน</th></tr></thead>
+        <tbody>
+        <tr><td><b>Cloud-centric</b><br><span style="color:var(--faint)">ส่ง raw ขึ้น cloud แล้วส่งผลกลับ</span></td><td>พลังประมวลผลสูง · รองรับ big data · อัปเดตโมเดลง่าย · เทรน ML ได้</td><td>latency สูง · ต้องมีเน็ตตลอด · เสี่ยง privacy</td><td>Smart City, Smart Agriculture, healthcare analytics</td></tr>
+        <tr><td><b>Edge-only</b><br><span style="color:var(--faint)">ประมวลผลบนตัวอุปกรณ์</span></td><td>latency ต่ำสุด · ทำงาน offline ได้ · privacy ดี</td><td>ทรัพยากรจำกัด · โมเดลเล็กเท่านั้น · อัปเดตยาก</td><td>รถไร้คนขับ, wearable, CCTV real-time</td></tr>
+        <tr><td><b>Hybrid</b><br><span style="color:var(--faint)">Edge + Cloud</span></td><td>สมดุล latency · ลด bandwidth · ได้ทั้งสองโลก</td><td>สถาปัตยกรรมซับซ้อน · แพงกว่า · ต้องทำ security สองฝั่ง</td><td>Smart Factory, predictive maintenance, Smart Healthcare</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><b>สูตรเลือกข้อ:</b> โจทย์มีทั้ง real-time ที่ปลายทาง และวิเคราะห์ ML ข้อมูลก้อนใหญ่ → ตอบ <b>Hybrid</b> ทุกครั้ง</p>
+    </section>
+
+    <section><h3>EDGE VS FOG VS CLOUD</h3>
+      <table>
+        <thead><tr><th></th><th>EDGE</th><th>FOG</th><th>CLOUD</th></tr></thead>
+        <tbody>
+        <tr><td>ที่ประมวลผล</td><td>บนอุปกรณ์/เซนเซอร์/gateway</td><td>ชั้นกลาง local server</td><td>data center รวมศูนย์</td></tr>
+        <tr><td>Latency</td><td>ต่ำสุด real-time</td><td>ต่ำ–กลาง</td><td>สูงกว่า</td></tr>
+        <tr><td>การเชื่อมต่อ</td><td>offline ได้</td><td>ต้องมี local network</td><td>ต้องมีอินเทอร์เน็ต</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section><h3>IoT Levels 4 ระดับ <span style="color:var(--faint);font-weight:600;font-size:6.4pt">สับสนบ่อย</span></h3>
+      <table>
+        <thead><tr><th>ระดับ</th><th>ทำอะไร</th><th>ตัวอย่าง</th></tr></thead>
+        <tbody>
+        <tr><td><span class="teal">1</span> Measurement</td><td>เก็บ raw data จากสิ่งแวดล้อมด้วยเซนเซอร์</td><td>เซนเซอร์ความชื้นดินตรวจว่าดินแห้ง</td></tr>
+        <tr><td><span class="teal">2</span> Automation</td><td>สั่งทำงานอัตโนมัติจากค่าที่วัดได้ (if-else / threshold)</td><td>ปั๊มน้ำเปิดเอง · ประตูล็อกเปิดเองเมื่อเจอคนที่มีสิทธิ์</td></tr>
+        <tr><td><span class="teal">3</span> Innovation</td><td>สร้างบริการ/โมเดลธุรกิจใหม่ จากข้อมูล IoT + AI/analytics</td><td>ผูกทะเบียนกับแอป ตัดเงินอัตโนมัติ ปรับราคาตามช่วงเวลา · บริการ smart farming ที่ติดตามประสิทธิภาพ</td></tr>
+        <tr><td><span class="teal">4</span> Cloud Storage</td><td>แพลตฟอร์มกลางสำหรับเก็บ แชร์ วิเคราะห์</td><td>เก็บข้อมูลไว้วิเคราะห์ผลผลิต</td></tr>
+        </tbody>
+      </table>
+      <p class="note amber"><span class="tag">Automation vs Innovation:</span> อ่านป้ายทะเบียน → ถ้าอยู่ในลิสต์ไม้กั้นเปิดเอง = <span class="am">Automation</span> · เพิ่มจ่ายเงินผ่านแอป + วิเคราะห์ช่วงคนแน่น + ปรับราคาตามเวลา = <span class="am">Innovation</span></p>
+    </section>
+
+    <section><h3>User-facing IoT Apps — 3 หน้าที่</h3>
+      <ul>
+        <li><b><span class="teal">1</span> Visualization</b> — เห็นค่าสด ๆ แบบ real-time เพราะค่า sensor เปลี่ยนตลอด · dashboard smart parking อัปเดตทันทีที่รถเข้า/ออก ไม่ใช่รอ 5 นาที · เกม: โชว์ท่ามือที่ AI ตรวจได้ ("ROCK") บนจอทันที</li>
+        <li><b><span class="teal">2</span> Notification &amp; alerts</b> — ระบบ push ให้ผู้ใช้เอง ไม่ต้องรอผู้ใช้มาเปิดดู (threshold / anomaly) · wearable แจ้งเตือนเมื่อ heart rate &gt; 120 bpm · เกม: ขึ้นผล "You Win!" ทันที = Notification</li>
+        <li><b><span class="teal">3</span> Control loop</b> — ผู้ใช้สั่งแล้วอุปกรณ์เปลี่ยนสถานะจริง — IoT คือ interaction ไม่ใช่แค่ monitoring · กด "Turn on AC" แล้วคำสั่งวิ่งถึงเครื่องทันที · เกม: ปุ่มเริ่มรอบใหม่</li>
+      </ul>
+      <p><b>Performance:</b> ถ้า latency &gt; 1 วินาที เกมเป่ายิ้งฉุบเล่นไม่ได้ · ถ้าใช้ 2 กล้อง (เล่นข้ามเครื่องแบบ LINE) ต้องเพิ่ม sync สองฝั่ง + ส่ง state ข้ามเครือข่าย → กลายเป็น D2C/C2C</p>
+    </section>
+
+    <section><h3>โปรโตคอลที่โผล่ในวิชานี้</h3>
+      <table>
+        <thead><tr><th>PROTOCOL</th><th>รูปแบบ</th><th>ใช้เมื่อ</th></tr></thead>
+        <tbody>
+        <tr><td><b>MQTT</b></td><td>Publish/Subscribe ผ่าน broker · TCP</td><td>เซนเซอร์จำนวนมาก แบนด์วิดท์ต่ำ · D2D/D2G/D2C</td></tr>
+        <tr><td><b>CoAP</b></td><td>REST-like บน UDP เบามาก</td><td>อุปกรณ์จิ๋ว พลังงานต่ำ · D2D</td></tr>
+        <tr><td><b>HTTP/HTTPS</b></td><td>REST API Request/Response</td><td>คุย cloud/API · สตรีมวิดีโอ MJPEG ผ่าน Flask ในแล็บ 1 &amp; 3</td></tr>
+        <tr><td><b>WebSocket</b></td><td>สองทางเต็ม คาไว้ตลอด</td><td>dashboard real-time</td></tr>
+        <tr><td><b>gRPC</b></td><td>RPC บน HTTP/2 · binary</td><td>service คุยกันในระบบใหญ่</td></tr>
+        <tr><td><b>ZigBee / BLE / LoRa</b></td><td>วิทยุระยะสั้น–ไกล พลังงานต่ำ</td><td>D2D / D2G ใน smart home, farm</td></tr>
+        </tbody>
+      </table>
+      <p class="note"><b>6LoWPAN</b> = IPv6 บนเครือข่ายไร้สายพลังงานต่ำ</p>
+    </section>
+
+  </div>
+</div>
+
+<!-- ============================== PAGE 2 ============================== -->
+<div class="page">
+  <div class="phead">
+    <span class="l">Evaluation · Lab 1–3</span>
+    <span class="m">Camera &amp; Haar · OCR · MediaPipe · เมตริกและกับดัก</span>
+    <span class="r">หน้า 2 / 2</span>
+  </div>
+  <div class="flow">
+
+    <section><h3>IoT Evaluation 7 หัวข้อ <span style="color:var(--faint);font-weight:600;font-size:6.4pt">ออกหลายข้อ</span></h3>
+      <table>
+        <thead><tr><th>หัวข้อ</th><th>ความหมาย · ตัวอย่าง</th></tr></thead>
+        <tbody>
+        <tr><td><b>1 Measurement Accuracy</b></td><td>เซนเซอร์/AI วัดถูกไหม · soil ±2% · detection ≥ 85% · วิธีตรวจ: เทียบกับเครื่องมือ ground-truth ที่ calibrate แล้ว ตาม datasheet</td></tr>
+        <tr><td><b>2 Automation &amp; Responsiveness</b></td><td>สั่งทำงานเองจากค่าที่วัด + ตอบสนองไว · ไฟติดใน 0.5 วิ · เตือน HR &gt; 120 bpm ถูก 90%</td></tr>
+        <tr><td><b>3 Innovation &amp; Usefulness</b></td><td>สร้างคุณค่าใหม่เกินการวัด/ควบคุมธรรมดา · ถังขยะ AI แยกขยะ · ห้องเรียนวัดความสนใจจากสีหน้า · healthcare → บริการแพทย์แบบใหม่ที่เมื่อก่อนทำไม่ได้</td></tr>
+        <tr><td><b>4 Cloud Integration &amp; Data Handling</b></td><td>ขึ้น cloud เพื่อเก็บ/แสดง/วิเคราะห์ · PM2.5 → Firebase → แอป · Node-RED + MQTT → กราฟสด · excellent = connectivity ≥ 95% เก็บยาวไม่สูญหาย</td></tr>
+        <tr><td><b>5 System Performance</b></td><td>efficiency + reliability + scalability · uptime 95% 7 วัน · 4 กล้อง latency &lt; 1 วิ · แบต 12 ชม.</td></tr>
+        <tr><td><b>6 User Experience &amp; Presentation</b></td><td>ใช้ง่าย สื่อสารชัด · Chart.js / Node-RED · ปุ่ม ON/OFF · ไดอะแกรม + live demo · เมตริกที่ถูก: <b>เวลาเฉลี่ยที่ผู้ใช้เรียนรู้การใช้แอป</b> (ไม่ใช่ CPU / API req / โควตา)</td></tr>
+        <tr><td><b>7 Cost Efficiency &amp; Feasibility</b></td><td>Hardware · Cloud free-tier vs paid · CAPEX/OPEX · Cost–Benefit · Sustainability · farming &lt; 2,000฿ (ESP32 300 + soil 150 + กล้อง 1,000) · parking ~8,000฿ (กล้อง 2,000 + Jetson 4,000 + เบ็ดเตล็ด 2,000) + AWS จ่ายต่อ request</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section><h3>AI-Specific Evaluation 6 หัวข้อ</h3>
+      <ul>
+        <li><b>1. Model Accuracy</b> — Precision / Recall / F1</li>
+        <li><b>2. Inference Latency</b> — edge vs cloud</li>
+        <li><b>3. Resource Efficiency</b> — Memory, CPU/GPU → ข้อ <span class="am">"แบตต้องอยู่ 12 ชม."</span> ตอบข้อนี้</li>
+        <li><b>4. Robustness &amp; Fairness</b> — ทนทุกสภาพ ไม่มีอคติ</li>
+        <li><b>5. Explainability (XAI)</b> — อธิบายเหตุผลได้ → <span class="am">หมอ/ผู้ใช้เชื่อถือผล AI</span></li>
+        <li><b>6. Maintainability</b> — retrain/อัปเดต MLOps → <span class="am">โมเดลปี 2023 เจอโรคพืชใหม่ปี 2025 แล้วแย่ = ข้อนี้</span></li>
+      </ul>
+    </section>
+
+    <section><h3>Lab 1 · Camera + Face Detection + Blur</h3>
+      <p>ไปป์ไลน์: Frame capture (OpenCV) → Face Detection (Haar Cascade) → Privacy Blur → Logging → Flask Web Stream</p>
+      <ul>
+        <li>สายกล้อง Pi = <b>MIPI CSI-2 serial</b> (ไม่ใช่ USB/UVC, I²C, SPI, HDMI)</li>
+        <li>สตรีมขึ้นเบราว์เซอร์ = <b>Flask + HTTP</b> (MJPEG) ไม่ใช่ MQTT/WebSocket/gRPC</li>
+        <li>เช็ค OS <code>cat /etc/os-release</code> · เปิดกล้องรุ่นเก่า <code>raspi-config → Interfacing Options → Camera</code></li>
+        <li>คำสั่งกล้อง: Bullseye <code>libcamera-hello / -jpeg -o x.jpg / -vid -o x.h264 / -raw</code> → Bookworm เปลี่ยนคำนำหน้าเป็น <code>rpicam-*</code></li>
+      </ul>
+      <p><span style="color:var(--muted);font-family:var(--cond);font-weight:700;font-size:7pt">HAAR CASCADE</span></p>
+      <ul>
+        <li>Sliding Window + Haar Filters ไถทั่วภาพ</li>
+        <li>Integral Image → หาผลรวมพื้นที่เร็ว (fast sum)</li>
+        <li>Cascade Stages → ด่านแรกตัดพื้นหลังทิ้งไว ๆ</li>
+      </ul>
+      <pre><code># ต้องแปลง grayscale ก่อนเสมอ
+f = cv2.CascadeClassifier(cv2.data.haarcascades +
+    'haarcascade_frontalface_default.xml')
+faces = f.detectMultiScale(gray,
+  scaleFactor=1.1,  # ↑ เร็วขึ้น แม่นลง
+  minNeighbors=5,   # ↑ false positive ลด
+  minSize=(30,30))
+for (x,y,w,h) in faces:
+  roi = frame[y:y+h, x:x+w]
+  frame[y:y+h, x:x+w] = cv2.blur(roi,(25,25))</code></pre>
+      <p><b>fps:</b> processing time/เฟรม = t_end − t_start · <b>fps = 1 / processing time (s)</b> → 50 ms = 20 fps · ในแล็บค่า default ช่วงที่หน้าเริ่มเบลอ = <span class="am">11–25 fps</span></p>
+    </section>
+
+    <section><h3>Spatial Filtering vs Convolution</h3>
+      <ul>
+        <li><b>Filtering</b> = ไถ kernel ทับภาพ หาผลรวมของผลคูณ → ได้ correlation ของภาพกับ kernel</li>
+        <li><b>Convolution</b> = เหมือนกัน แต่ <b>พลิก (mirror) kernel 180°</b> ก่อน → output คล้าย kernel · kernel สมมาตร = ผลเท่ากัน · ใช้ <code>cv2.filter2D</code></li>
+        <li><b>Box/Average (cv2.blur)</b> = เบลอ · kernel ใหญ่ขึ้น 5×5 → 15×15 = <b>เบลอแรงขึ้น + ช้าลง</b> (ไม่ใช่คมขึ้น ไม่ใช่ fps ขึ้น)</li>
+        <li><b>Gaussian</b> = เบลอนุ่ม ถ่วงน้ำหนักกลางมาก</li>
+        <li><b>Laplacian</b> = เหลือแต่ขอบ ไม่เหลือรายละเอียดอื่น (อนุพันธ์อันดับ 2) ขยาย noise</li>
+        <li><b>Sobel/Prewitt</b> = ขอบตามแกน x หรือ y · <b>Sharpen</b> = คมขึ้น</li>
+      </ul>
+    </section>
+
+    <section><h3>Lab 2 · OCR อ่านป้ายทะเบียน</h3>
+      <p>เปลี่ยน raw image → ข้อมูลที่ใช้ได้ · ไลบรารี = <span class="am">EasyOCR</span> (ไม่ใช่ OpenCV/NumPy/Matplotlib/Pandas) · โชว์ผลบนเว็บ Flask/Gradio · ใช้กับ smart logistics, smart parking, document digitization</p>
+      <p><span style="color:var(--muted);font-family:var(--cond);font-weight:700;font-size:7pt">4 กลุ่ม OCR</span></p>
+      <ul>
+        <li><b>Basic</b> Tesseract 5–20 MB · EasyOCR 30–80 MB → ฟรี เบา CPU ได้ แต่แม่นน้อย ฟอนต์ไทยแย่ ไม่วิเคราะห์ layout · รันบน Pi/edge</li>
+        <li><b>Cloud</b> Google Vision, Azure OCR, AWS Textract → แม่นหลายภาษา ต่อง่าย แต่ต้องมีเน็ต + มีค่าใช้จ่าย + เสี่ยง privacy</li>
+        <li><b>Advanced</b> PaddleOCR mobile 8–20 MB / server 100–300 MB · MMOCR 50–200 MB · DocTR 200–400 MB · Keras-OCR 70–120 MB → detection+recognition, layout ซับซ้อน แต่หนัก ต้อง GPU</li>
+        <li><b>Native/Mobile</b> iOS Vision, Android ML Kit → on-device offline แต่ผูกแพลตฟอร์ม</li>
+      </ul>
+      <p><span style="color:var(--muted);font-family:var(--cond);font-weight:700;font-size:7pt">พารามิเตอร์ EASYOCR</span></p>
+      <ul>
+        <li><b>text_threshold</b> เกณฑ์ความมั่นใจของตัวอักษร · เจอขยะมั่ว ๆ ทั่วภาพ → เพิ่มค่านี้</li>
+        <li><b>low_text</b> ขอบล่างคะแนนข้อความ · ลด = จับตัวจาง ๆ ได้มากขึ้น (ขยะมากขึ้น)</li>
+        <li><b>link_threshold</b> เชื่อมตัวอักษรเป็นคำ · <b>gpu=False</b> บังคับ CPU</li>
+        <li><b>allowlist</b> จำกัดชุดอักขระ (ไทย+เลข) → ลดการอ่านผิดประเภท ไม่ได้ช่วยความเร็วเซิร์ฟเวอร์ / contrast / การหมุน</li>
+      </ul>
+      <pre><code>r = easyocr.Reader(['th','en'], gpu=False)
+out = r.readtext(img, allowlist=ALLOWLIST,
+       text_threshold=0.7, low_text=0.4)
+# out = [(bbox, text, confidence), ...]</code></pre>
+      <p><b>เร่งความเร็ว:</b> crop ROI ป้าย / ย่อภาพ / grayscale · ทำ OCR ทุก N เฟรม · โหลด Reader ครั้งเดียวนอกลูป · ใช้ allowlist + โมเดลเบา · ยกงานหนักขึ้น cloud (hybrid)</p>
+      <p><span style="color:var(--muted);font-family:var(--cond);font-weight:700;font-size:7pt">เมตริกที่ต้องเลือกให้ถูก</span></p>
+      <ul>
+        <li><span class="teal">Accuracy</span> = % ที่ถูกทั้งหมด (exact match) → ไม้กั้นเปิดเฉพาะเมื่ออ่านป้ายถูกทุกตัว ผิดตัวเดียวไม่ผ่าน = Accuracy</li>
+        <li><span class="teal">CER</span> = (S+D+I)/N ตัวอักษร · CER 15% = ตัวอักษร 15% ไม่ตรง (ไม่ใช่ถูก 85% ไม่ใช่เฟรมหลุด ไม่ใช่ fps/latency) · <b>WER</b> = ระดับคำ</li>
+        <li><span class="teal">Precision</span> TP/(TP+FP) ที่ทายว่าใช่ ถูกจริงกี่ % · <span class="teal">Recall</span> TP/(TP+FN) ของจริงจับได้กี่ % · <span class="teal">F1</span> = 2PR/(P+R) ใช้เมื่อคลาสไม่สมดุล</li>
+        <li><b>BLEU</b> = งานแปล/generate text · <b>OKS</b> = งาน keypoint/pose — ทั้งคู่ไม่ใช่เมตริก OCR ป้ายทะเบียน</li>
+        <li>ความเชื่อถือได้ของระบบเตือน = % ของ alert ที่ส่งถึงสำเร็จภายใน 5 วินาที (ไม่ใช่จำนวนผู้ใช้ ไม่ใช่รอบชาร์จแบต)</li>
+        <li><b>Latency / fps</b> = ความเร็ว · <b>uptime %</b> = reliability</li>
+      </ul>
+    </section>
+
+    <section><h3>Lab 3 · MediaPipe Hands + เป่ายิ้งฉุบ</h3>
+      <p>ไปป์ไลน์: Picamera2 init (resolution + format) → capture + แปลงรูปแบบให้ MediaPipe (BGR→RGB) → Hand Landmark Detection → เก็บ y ของ TIP/PIP → classifier() → วาด landmark + ข้อความท่า → encode MJPEG → Flask Response → render HTML template</p>
+      <ul>
+        <li><b>MediaPipe Hands = 21 landmarks ต่อมือ</b> (ไม่ใช่ 19/20/22/23) · index 0 = WRIST · lm.x, lm.y เป็น 0–1 ต้องคูณ frame width/height</li>
+        <li>ข้อนิ้ว โคน → ปลาย: <b>MCP</b> (โคนมือ) → <b>PIP</b> (ข้อกลาง) → <b>DIP</b> (ข้อใกล้ปลาย) → <b>TIP</b> (ปลายนิ้ว)</li>
+      </ul>
+      <p class="note"><span class="tag">กฎทอง:</span> พิกัดภาพ y = 0 ที่ขอบบน และเพิ่มลงล่าง ดังนั้นมือตั้งตรงฝ่ามือหันกล้อง → <span class="am">นิ้วเหยียด (open) = TIP.y &lt; PIP.y</span> · นิ้วงอ = TIP.y &gt; PIP.y · แยกนิ้วกาง (V-sign) vs นิ้วชิด → ผลต่างของ x ระหว่างปลายนิ้วที่ติดกัน</p>
+      <pre><code>def classifier(i_t,i_p, m_t,m_p, r_t,r_p, p_t,p_p):
+    up = lambda t,p: t < p     # เหยียด
+    f = [up(i_t,i_p), up(m_t,m_p),
+         up(r_t,r_p), up(p_t,p_p)]
+    if not any(f): return "ROCK"
+    if all(f):     return "PAPER"
+    if f[0] and f[1] and not f[2] and not f[3]:
+        return "SCISSORS"
+    return ""</code></pre>
+      <p><b>Game logic:</b> คอมสุ่ม <code>random.choice([...])</code> → เทียบกับผู้เล่น → You Win / You Lose / Tie → <code>render_template('game.html', …)</code> · <b>ROCK&gt;SCISSORS&gt;PAPER&gt;ROCK</b> · เท่ากัน = Tie</p>
+    </section>
+
+    <section><h3>กับดักที่พลาดบ่อย</h3>
+      <ol class="ol">
+        <li><b>High latency</b> ไม่ใช่คุณลักษณะ IoT — แต่ Scalability คือ (Enormous Scale)</li>
+        <li>Desktop PC ไม่ใช่ edge device · Jetson Nano เป็น</li>
+        <li>กล้อง Pi = MIPI CSI-2 · สตรีม = Flask + HTTP</li>
+        <li>kernel ใหญ่ขึ้น = เบลอแรงขึ้น · Laplacian = เหลือแต่ขอบ</li>
+        <li>Convolution พลิก kernel · filtering ไม่พลิก</li>
+        <li>CCTV ที่ถูก: on-device buffer สั้น → edge จำหน้า + กรอง event → cloud analytics + เก็บยาว</li>
+        <li>D2C = ไม่ผ่าน gateway — จับคำว่า <b>"directly"</b> ในโจทย์</li>
+        <li>ข้อดี Cloud-centric = พลังประมวลผล + เทรน ML ไม่ใช่ latency ต่ำ/privacy</li>
+        <li>ข้อเสีย Cloud OCR = network dependency + privacy</li>
+        <li>ขยะ OCR ทั่วภาพ → เพิ่ม text_threshold</li>
+        <li>Innovation = บริการ/มูลค่าใหม่ ไม่ใช่ if-else ไม่ใช่อัปไฟล์ขึ้น cloud</li>
+        <li><b>"You Win!"</b> ขึ้นทันที = Notification ไม่ใช่ Visualization</li>
+        <li>MediaPipe = 21 จุด · นิ้วเหยียด TIP.y &lt; PIP.y</li>
+        <li>UX metric = เวลาเรียนรู้การใช้แอป</li>
+        <li>โมเดลเก่าเจอข้อมูลใหม่แล้วแย่ = Maintainability</li>
+        <li>Explainability มีไว้ให้คนเชื่อถือผล ไม่ใช่ลด latency/storage</li>
+      </ol>
+    </section>
+
+    <section><h3>ตัวเลข</h3>
+      <table class="num">
+        <tbody>
+        <tr><td>3 วินาที</td><td></td></tr>
+        <tr><td>21</td><td>MediaPipe landmark/มือ</td></tr>
+        <tr><td>32</td><td>ข้อในข้อสอบเก่า · 1 คะแนน/ข้อ</td></tr>
+        <tr><td>16% / 10%</td><td>Lab รวม / Quiz → 25%</td></tr>
+        <tr><td>11–25 fps</td><td>ช่วงที่หน้าเริ่มเบลอ</td></tr>
+        <tr><td>&lt; 1 s</td><td>latency ที่เกมยังเล่นได้ · 4 กล้อง</td></tr>
+        <tr><td>0.5 s</td><td>ไฟติดเมื่อจับความเคลื่อนไหว</td></tr>
+        <tr><td>120/160 bpm</td><td>threshold เตือน heart rate</td></tr>
+        <tr><td>5 s</td><td>กรอบเวลาส่ง alert สำเร็จ</td></tr>
+        <tr><td>≥ 85%</td><td>accuracy detection ที่ยอมรับ</td></tr>
+        <tr><td>≥ 95%</td><td>connectivity success · uptime 7 วัน</td></tr>
+        <tr><td>±2%</td><td>ความแม่นเซนเซอร์ความชื้นดิน</td></tr>
+        <tr><td>12 ชม.</td><td>แบต wearable</td></tr>
+        <tr><td>2,000 / 8,000 ฿</td><td>ต้นทุน farming / parking</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+</div>
+
+</body></html>

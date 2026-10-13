@@ -1,0 +1,18 @@
+# Reference / course materials — NOT part of this repo
+IoT_Part2_Cheatsheet_2pages.*
+
+# Duplicate of V1 (the unversioned file)
+IoT_Real_Horizontal_2pages.html
+
+# Course / lab source files
+real.pdf
+1_2569_*.md
+app-*.py
+lab2_app-*.py
+lab3_app-*.py
+lab1*.png
+Rock Paper Scissors Result.html
+
+# OS junk
+Thumbs.db
+Desktop.ini
