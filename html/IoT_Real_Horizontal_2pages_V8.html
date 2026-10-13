@@ -301,7 +301,7 @@ tbody tr+tr td{border-top:1px solid var(--rowline)}
       <p><b class="teal">Py:</b> <code>f"{x:.2f}"</code> · <code>[r for r in rs if r[2]&gt;=th]</code> · <code>lambda b:b[0]</code> · <code>.sort(key=…)</code> · <code>x % N == 0</code> · <code>with open(p,"a") as f</code> · <code>h,w,_ = frame.shape</code> · <code>if __name__=="__main__"</code></p>
       <p><b class="teal">OpenCV:</b> <code>resize(img,None,fx,fy)</code> · <code>circle((cx,cy),r,color,-1)</code> (-1=ทึบ) · <code>imread/imshow/waitKey(0)/destroyAllWindows</code></p>
       <p><b class="teal">PIL:</b> <code>ImageDraw.Draw(img)</code> · <code>ImageFont.truetype(path,22)</code> · <code>thumbnail((800,800))</code></p>
-      <p><b class="teal">Flask:</b> <code>Flask(__name__)</code> · <code>request.files["image"]</code> · <code>abort(400)</code> · <code>render_template</code> · <code>redirect</code></p>
+      <p><b class="teal">Flask:</b> <code>Flask(__name__)</code> · <code>request.files["image"]</code> · <code>abort(400)</code> · <code>render_template / render_template_string</code></p>
     </section>
 
     <section><h3>คำศัพท์สำคัญ</h3>
@@ -370,7 +370,7 @@ tbody tr+tr td{border-top:1px solid var(--rowline)}
         <li><code>detectMultiScale(gray,1.1,4)</code> <span class="f">#</span> → <code>[(x,y,w,h)]</code> · ว่าง = ไม่เจอ</li>
         <li><code>scaleFactor↑</code> เร็วแต่พลาดขนาด · <code>minNeighbors↑</code> FP น้อย · <code>minSize↑</code> เร็ว</li>
         <li><b>Haar เร็วเพราะ</b> <span class="hl">Integral Image + Cascade Stages</span> · Sliding Window ไถทั่วภาพ</li>
-        <li><code>np.ones((25,25))/(25*25)</code> + <code>filter2D(roi,-1,k)</code> <span class="f">#</span> box blur 25×25</li>
+        <li><code>np.ones((25,25))/(25*25)</code> + <code>filter2D(roi,-1,k)</code> <span class="f">#</span> box blur (ผลรวม = 1; ไม่หาร → ขาวโพลน) · <code>-1</code> = depth เดิม</li>
         <li><code>rectangle(…)</code> + <code>putText(…,LINE_AA)</code> <span class="f">#</span> กรอบหน้า + ข้อความ fps/faces</li>
       </ul>
       <pre><code>f = cv2.CascadeClassifier(cv2.data.haarcascades
@@ -386,9 +386,9 @@ for (x,y,w,h) in faces:
       </ul>
       <p class="sub">Camera, log &amp; notes</p>
       <ul class="nl">
-        <li>Picamera2 <code>create_preview_configuration(main={"format":"XRGB8888","size":(640,480)})</code> <span class="f">#</span> <b>XRGB8888 = 4 ไบต์/px</b> · <code>capture_array()</code></li>
+        <li>Picamera2 <code>create_preview_configuration(main={"format":"XRGB8888","size":(640,480)})</code> <span class="f">#</span> <b>XRGB8888 = 4 ไบต์/px</b> (R,G,B+X; เรียง B,G,R) · <code>capture_array()</code></li>
         <li>สายกล้อง Pi = <span class="hl">MIPI CSI-2 serial</span> (ไม่ใช่ USB/UVC, I²C, SPI, HDMI)</li>
-        <li><code>isoformat(timespec="seconds")</code> <span class="f">#</span> ISO-8601 + timezone · <code>open("log.txt","a")</code></li>
+        <li><code>isoformat(timespec="seconds")</code> <span class="f">#</span> ISO-8601 + timezone (ไม่ใส่ = มีไมโครวินาที) · <code>open("log.txt","a")</code></li>
         <li>status <b>ABSENT=0 · NORMAL=1 · SUSPICIOUS≥2</b> · เขียน log ทุก 1 วิ (ไม่ทุกเฟรม)</li>
         <li><b>fps = 1 / เวลาต่อเฟรม (s)</b> → 50 ms = 20 fps · ในแล็บ <span class="am">11–25 fps</span> · <b>frame pacing</b> แก้ jitter</li>
         <li>เช็ค OS <code>cat /etc/os-release</code> · Bullseye <code>libcamera-*</code> → Bookworm <code>rpicam-*</code></li>
